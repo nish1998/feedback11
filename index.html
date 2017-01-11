@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="csshake.min.css">
+<link rel="stylesheet" type="text/css" href="http://csshake.surge.sh/csshake.min.css">
+<meta charset="UTF-8">
+<title>Website Contact Form</title>
+<script>
+function _(id){ return document.getElementById(id); }
+function submitForm(){
+	_("mybtn").disabled = true;
+	_("status").innerHTML = 'please wait ...';
+	var formdata = new FormData();
+	formdata.append( "n", _("n").value );
+	formdata.append( "e", _("e").value );
+	formdata.append( "m", _("m").value );
+	var ajax = new XMLHttpRequest();
+	ajax.open( "POST", "example_parser.php" );
+	ajax.onreadystatechange = function() {
+		if(ajax.readyState == 4 && ajax.status == 200) {
+			if(ajax.responseText == "success"){
+				_("my_form").innerHTML = '<h2>Thanks '+_("n").value+', your message has been sent.</h2>';
+			} else {
+				_("status").innerHTML = ajax.responseText;
+				_("mybtn").disabled = false;
+			}
+		}
+	}
+	ajax.send( formdata );
+}
+</script>
+
+<style>
+#n,#e{
+	font-size: 25px;
+	margin-left: 100px;
+
+}
+textarea {
+	margin-left: 100px;
+	font-size: 25px;
+	
+
+}
+#mybtn
+{
+	background: #ccffff;
+	font-size: 25px;
+	margin-left: 100px;
+  
+}
+
+body{
+	background: linear-gradient(to left top,#3385ff, #66ff66);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+#logo{
+	width: 200px;
+	position: absolute;
+	right:50px;
+	margin-top: -350px;
+}
+
+#icon{
+	bottom: 0px;
+	left: 0px;
+}
+
+</style>
+
+</head>
+<body>
+<form id="my_form" onsubmit="submitForm(); return false;">
+  <p><input id="n" placeholder="Name" required></p>
+  <p><input id="e" placeholder="Email Address" type="email" required></p>
+  <textarea id="m" placeholder="write your message here" rows="10" required></textarea>
+  <p><input id="mybtn" type="submit" value="Submit Form"> <span id="status"></span></p>
+</form>
+
+<img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMS4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTI7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiPgo8Zz4KCTxnPgoJCTxwYXRoIHN0eWxlPSJmaWxsOiNCM0Y0RkY7IiBkPSJNNDU5LjE0OCw0MzkuNTU0TDMwNCwxNzcuMzk0VjMyYzAtNC40MTgtMy41NzgtOC04LThzLTgsMy41ODItOCw4aC02NGMwLTQuNDE4LTMuNTc4LTgtOC04ICAgIHMtOCwzLjU4Mi04LDh2MTQ1LjM5NEw1Mi44NTIsNDM5LjU1NGMtOC44OTgsMTUuMDI3LTkuMDM5LDMzLjA1NS0wLjM5MSw0OC4yMjNTNzYuNjk1LDUxMiw5NC4xNTYsNTEyaDMyMy42ODcgICAgYzE3LjQ2MSwwLDMzLjA0Ny05LjA1NSw0MS42OTUtMjQuMjIzQzQ2OC4xODcsNDcyLjYwOSw0NjguMDQ3LDQ1NC41ODIsNDU5LjE0OCw0MzkuNTU0eiIvPgoJPC9nPgoJPGc+CgkJPHBhdGggc3R5bGU9ImZpbGw6IzUzRENGRjsiIGQ9Ik0yNTYsMzJoLTMyYzAtNC40MTgtMy41NzgtOC04LThzLTgsMy41ODItOCw4djE0NS4zOTRMNTIuODUyLDQzOS41NTQgICAgYy04Ljg5OCwxNS4wMjctOS4wMzksMzMuMDU1LTAuMzkxLDQ4LjIyM1M3Ni42OTUsNTEyLDk0LjE1Niw1MTJIMjU2VjMyeiIvPgoJPC9nPgoJPGc+CgkJPHBhdGggc3R5bGU9ImZpbGw6IzAwRTY4QzsiIGQ9Ik00MzEuNjE3LDQ1NS44NTFsLTQ0LjkzNy03NS45MjZjLTEuNDM4LTIuNDM0LTQuMDU1LTMuOTI2LTYuODgzLTMuOTI2SDEzMi4yMDMgICAgYy0yLjgyOCwwLTUuNDQ1LDEuNDkyLTYuODgzLDMuOTI2bC00NC45Myw3NS45MjZjLTMuMDA4LDUuMDc4LTMuMDYyLDEwLjkzNC0wLjEzMywxNi4wODJjMi45MzgsNS4xMjUsOCw4LjA2NiwxMy44OTgsOC4wNjYgICAgaDMyMy42ODdjNS44OTgsMCwxMC45NjEtMi45NDEsMTMuOTA2LTguMDgyQzQzNC42NzIsNDY2Ljc4OSw0MzQuNjI1LDQ2MC45MzMsNDMxLjYxNyw0NTUuODUxeiIvPgoJPC9nPgoJPGc+CgkJPHBhdGggc3R5bGU9ImZpbGw6IzAwQkVCRTsiIGQ9Ik0yNTYsMzc2SDEzMi4yMDNjLTIuODI4LDAtNS40NDUsMS40OTItNi44ODMsMy45MjZsLTQ0LjkzLDc1LjkyNiAgICBjLTMuMDA4LDUuMDc4LTMuMDYyLDEwLjkzNC0wLjEzMywxNi4wODJjMi45MzgsNS4xMjUsOCw4LjA2NiwxMy44OTgsOC4wNjZIMjU2VjM3NnoiLz4KCTwvZz4KCTxnPgoJCTxnPgoJCQk8cGF0aCBzdHlsZT0iZmlsbDojNUM1NDZBOyIgZD0iTTI4MCwyNjRoLTQ4Yy00LjQyMiwwLTgtMy41ODItOC04czMuNTc4LTgsOC04aDQ4YzQuNDIyLDAsOCwzLjU4Miw4LDhTMjg0LjQyMiwyNjQsMjgwLDI2NHoiLz4KCQk8L2c+Cgk8L2c+Cgk8Zz4KCQk8Zz4KCQkJPHBhdGggc3R5bGU9ImZpbGw6IzVDNTQ2QTsiIGQ9Ik0yODAsMzA0aC00OGMtNC40MjIsMC04LTMuNTgyLTgtOHMzLjU3OC04LDgtOGg0OGM0LjQyMiwwLDgsMy41ODIsOCw4UzI4NC40MjIsMzA0LDI4MCwzMDR6Ii8+CgkJPC9nPgoJPC9nPgoJPGc+CgkJPGc+CgkJCTxwYXRoIHN0eWxlPSJmaWxsOiM1QzU0NkE7IiBkPSJNMjgwLDM0NGgtNDhjLTQuNDIyLDAtOC0zLjU4Mi04LThzMy41NzgtOCw4LThoNDhjNC40MjIsMCw4LDMuNTgyLDgsOFMyODQuNDIyLDM0NCwyODAsMzQ0eiIvPgoJCTwvZz4KCTwvZz4KCTxnPgoJCTxjaXJjbGUgc3R5bGU9ImZpbGw6I0ZGRkZGRjsiIGN4PSIyODgiIGN5PSI0MzIiIHI9IjE2Ii8+Cgk8L2c+Cgk8Zz4KCQk8Y2lyY2xlIHN0eWxlPSJmaWxsOiMwMEU2OEM7IiBjeD0iMjAwIiBjeT0iNDA4IiByPSIxNiIvPgoJPC9nPgoJPGc+CgkJPGNpcmNsZSBzdHlsZT0iZmlsbDojRkZGRkZGOyIgY3g9IjM0NCIgY3k9IjQxNiIgcj0iOCIvPgoJPC9nPgoJPGc+CgkJPGNpcmNsZSBzdHlsZT0iZmlsbDojMDBFNjhDOyIgY3g9IjIyNCIgY3k9IjQ0MCIgcj0iOCIvPgoJPC9nPgoJPGc+CgkJPGNpcmNsZSBzdHlsZT0iZmlsbDojMDBFNjhDOyIgY3g9IjE1MiIgY3k9IjQyNCIgcj0iOCIvPgoJPC9nPgoJPGc+CgkJPHBhdGggc3R5bGU9ImZpbGw6IzQ0QkVGMTsiIGQ9Ik0zMDQsMGwtOTYsMGMtOC44MzcsMC0xNiw3LjE2My0xNiwxNnYwYzAsOC44MzcsNy4xNjMsMTYsMTYsMTZoOTZjOC44MzcsMCwxNi03LjE2MywxNi0xNnYwICAgIEMzMjAsNy4xNjMsMzEyLjgzNiwwLDMwNCwweiIvPgoJPC9nPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=" / id="logo" class="shake-horizontal">
+
+
+
+
+
+</body>
+</html>
